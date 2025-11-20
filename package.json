@@ -1,0 +1,30 @@
+{
+  "name": "safe-entry",
+  "version": "1.0.0",
+  "description": "this is safe entry, with a demo name for mvp purposes",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshverdhan312/safe-entry.git"
+  },
+  "author": "Harsh Verdhan Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshverdhan312/safe-entry/issues"
+  },
+  "homepage": "https://github.com/harshverdhan312/safe-entry#readme",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.20.0",
+    "nodemon": "^3.1.11",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17"
+  }
+}
