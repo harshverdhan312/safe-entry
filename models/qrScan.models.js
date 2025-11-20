@@ -8,7 +8,7 @@ const qrSchema = new Schema({
         unique:true
     },
     qrCode:{
-        type:string
+        type:String
     },
     createdBy:{
         type:mongoose.Schema.Types.ObjectId,
@@ -26,5 +26,5 @@ const qrSchema = new Schema({
     timestamps:true
 })
 
-const qrCodeModel = mongoose.Model("QR_Scan", qrSchema);
+const qrCodeModel = mongoose.model("QR_Scan", qrSchema);
 module.exports.qrCodeModel = qrCodeModel;
