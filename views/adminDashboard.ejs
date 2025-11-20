@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/styles.css" rel="stylesheet">
+    <title>Admin Dashboard</title>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+            <% if (userId) { %>
+                <div class="text-right">
+                    <p class="text-gray-600">Welcome, <%= user ? user.name : 'Admin' %>!</p>
+                    <p class="text-sm text-gray-500 font-mono">ID: <%= userId %></p>
+                </div>
+            <% } %>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Create Regular User Section -->
+            <section id="create-user" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Create Regular User</h2>
+                <form id="create-user-form" action="/api/v1/admin/create-user" method="POST" class="space-y-4">
+                    <% if (user) { %>
+                        <input type="hidden" name="adminId" value="<%= user._id %>">
+                    <% } %>
+                    <input type="text" name="name" placeholder="Full Name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="password" name="password" placeholder="Password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Create User</button>
+                </form>
+            </section>
+
+            <!-- Create Guard Section -->
+            <section id="create-guard" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Create Guard</h2>
+                <form id="create-guard-form" action="/api/v1/admin/create-guard" method="POST" class="space-y-4">
+                    <% if (user) { %>
+                        <input type="hidden" name="adminId" value="<%= user._id %>">
+                    <% } %>
+                    <input type="text" name="name" placeholder="Full Name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="password" name="password" placeholder="Password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Create Guard</button>
+                </form>
+            </section>
+
+            <!-- Update Profile Section -->
+            <section id="update-profile" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Update Your Profile</h2>
+                <form action="/api/v1/users/update-details" method="POST" class="space-y-4">
+                    <% if (userId) { %>
+                        <input type="hidden" name="userId" value="<%= userId %>">
+                        <input type="hidden" name="userType" value="admin">
+                    <% } %>
+                    <input type="text" name="name" placeholder="New Name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="email" name="email" placeholder="New Email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Update Profile</button>
+                </form>
+            </section>
+
+            <!-- Visit Logs Section -->
+            <section id="visit-logs" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Visit Logs</h2>
+                <p class="text-gray-600">This area will display a table of all visitor logs.</p>
+                <!-- Example of how you might loop through logs passed from the server -->
+                <%# if (logs && logs.length) { %>
+                    <!-- <div class="overflow-x-auto"><table class="min-w-full bg-white"> ... render logs ... </table></div> -->
+                <%# } else { %>
+                    <p class="text-gray-500 mt-4">No visit logs found.</p>
+                <%# } %>
+            </section>
+            
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data is now securely passed from the server via flash messages
+            const newUser = <%- JSON.stringify(newUser || null) %>;
+            if (newUser && newUser.newUserId && newUser.newUserName && newUser.newUserPass) {
+                const message = `New ${newUser.newUserType} Created!\n\nID: ${newUser.newUserId}\nName: ${newUser.newUserName}\nPassword: ${newUser.newUserPass}\n\nPlease save these credentials securely.`;
+                alert(message);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/styles.css" rel="stylesheet">
+    <title>Guard Dashboard</title>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Guard Dashboard</h1>
+            <% if (userId) { %>
+                <div class="text-right">
+                    <p class="text-gray-600">Welcome, <%= user ? user.name : 'Guard' %>!</p>
+                    <p class="text-sm text-gray-500 font-mono">ID: <%= userId %></p>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- Prompt to complete profile -->
+        <% if (user && !user.contact_number) { %>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                <p class="font-bold">Complete Your Profile</p>
+                <p>Please update your profile with your contact number to continue.</p>
+            </div>
+        <% } %>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Scan QR Section -->
+            <section id="scan-qr" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Scan Visitor QR Code</h2>
+                <div id="qr-reader" class="w-full border-2 border-dashed border-gray-300 rounded-md mb-4" style="width: 100%;"></div>
+                <div id="qr-reader-results" class="text-center font-mono text-green-600"></div>
+                <form id="scan-form" action="/api/v1/guard/scan-qr" method="POST" class="space-y-4">
+                    <div>
+                        <label for="qrId" class="block mb-2 text-sm font-semibold text-gray-700">QR Code ID:</label>
+                        <input type="text" id="qrId" name="qrId" placeholder="Enter QR ID manually" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <input type="hidden" name="guardId" value="<%= userId %>">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Submit Scan</button>
+                </form>
+            </section>
+
+            <!-- Update Profile Section -->
+            <section id="update-profile" class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Update Your Profile</h2>
+                <form action="/api/v1/users/update-details" method="POST" class="space-y-4">
+                    <% if (userId) { %>
+                        <input type="hidden" name="userId" value="<%= userId %>">
+                        <input type="hidden" name="userType" value="guard">
+                    <% } %>
+                    <input type="text" name="name" placeholder="New Name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="tel" name="contact_number" placeholder="New Contact Number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Update Profile</button>
+                </form>
+            </section>
+        </div>
+    </div>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            // handle the scanned code as you like, for example:
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+            
+            // Set the value in the input field
+            document.getElementById('qrId').value = decodedText;
+            
+            // Optionally, submit the form automatically
+            document.getElementById('scan-form').submit();
+        }
+
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            // console.warn(`Code scan error = ${error}`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader",
+                { fps: 10, qrbox: {width: 250, height: 250} },
+                /* verbose= */ false);
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        });
+    </script>
+</body>
+</html>
