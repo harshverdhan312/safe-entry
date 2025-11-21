@@ -1,2 +1,224 @@
-/* This is the correct directive for Tailwind CSS v4 */
-@import "tailwindcss";
+/* General Body Styles */
+body {
+    background-color: #f7fafc;
+    font-family: sans-serif;
+    color: #4a5568;
+    margin: 0;
+}
+
+/* Main Container */
+.container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-info .user-id {
+    font-size: 0.875rem;
+    color: #718096;
+    font-family: monospace;
+}
+
+/* Alert Box */
+.alert-warning {
+    background-color: #fefcbf;
+    border-left: 4px solid #fbbF24;
+    color: #92400e;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Info Alert Box (for admin dashboard) */
+.alert-info {
+    background-color: #e0f2fe;
+    border-left: 4px solid #3b82f6;
+    color: #0c4a6e;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.375rem;
+}
+
+.alert-info p {
+    margin: 0.5rem 0;
+}
+
+/* Grid Layout for Cards */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #4a5568;
+}
+
+.card p {
+    color: #4a5568;
+}
+
+.card.text-center {
+    text-align: center;
+}
+
+/* Visitor Count */
+.visitor-count {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Centered Form Container (for login/signup) */
+.form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+}
+
+/* Button Styles */
+.btn {
+    width: 100%;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.btn-success {
+    background-color: #22c55e;
+}
+
+.btn-success:hover {
+    background-color: #16a34a;
+}
+
+/* Link Styles */
+a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* QR Reader Styles */
+#qr-reader {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive Grid */
+@media (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Responsive Padding for Container */
+@media (min-width: 640px) {
+    .container {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 2rem;
+    }
+}

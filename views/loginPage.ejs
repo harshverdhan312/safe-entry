@@ -6,30 +6,30 @@
     <link href="/stylesheets/styles.css" rel="stylesheet">
     <title>Login - Safe Entry</title>
 </head>
-<body class="bg-gray-100 font-sans">
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Login to Your Account</h1>
-            <form action="/api/v1/users/login" method="POST" class="space-y-4">
+<body>
+    <div class="form-container">
+        <div class="card form-card">
+            <h2>Login to Your Account</h2>
+            <form action="/api/v1/users/login" method="POST">
                 <div>
-                    <label for="userId" class="block mb-2 text-sm font-semibold text-gray-700">User ID:</label>
-                    <input type="text" id="userId" name="userId" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" name="userId" required>
                 </div>
                 <div>
-                    <label for="password" class="block mb-2 text-sm font-semibold text-gray-700">Password:</label>
-                    <input type="password" id="password" name="password" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
                 <div>
-                    <label for="userType" class="block mb-2 text-sm font-semibold text-gray-700">I am a:</label>
-                    <select id="userType" name="userType" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <label for="userType">I am a:</label>
+                    <select id="userType" name="userType" required>
                         <option value="regular">Regular User</option>
                         <option value="guard">Guard</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
-            <p class="text-center text-sm text-gray-600 mt-4">New user? <a href="/signup" class="text-blue-500 hover:underline">Create an account</a></p>
+            <p style="text-align: center; margin-top: 1rem;">New user? <a href="/signup">Create an account</a></p>
         </div>
     </div>
 </body>
