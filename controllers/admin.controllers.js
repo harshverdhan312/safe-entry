@@ -20,18 +20,14 @@ const createRegularUser = asyncHandler(async (req, res) => {
     // Add user to admin's list
     await adminModel.findByIdAndUpdate(adminId, { $push: { regularUserList: user._id } });
 
-    // We need to get the admin's UID to redirect correctly
-    const admin = await adminModel.findById(adminId);
-
-    // Store credentials in a flash message instead of the URL
-    req.flash('newUserCredentials', {
-        newUserType: 'User',
-        newUserName: name,
-        newUserId: ruid,
-        // WARNING: Passing plain-text passwords, even in session, is a security risk.
-        newUserPass: password 
-    });
-    return res.redirect(`/dashboard/admin?userId=${admin.uid}`);
+    return res.status(201).json(
+        new ApiResponse(201, {
+            newUserType: 'User',
+            newUserName: name,
+            newUserId: ruid,
+            newUserPass: password // Note: Sending password back is risky. Consider removing in production.
+        }, "Regular user created successfully")
+    );
 });
 
 const createGuard = asyncHandler(async (req, res) => {
@@ -47,18 +43,14 @@ const createGuard = asyncHandler(async (req, res) => {
     // Add guard to admin's list
     await adminModel.findByIdAndUpdate(adminId, { $push: { guardsList: guard._id } });
 
-    // We need to get the admin's UID to redirect correctly
-    const admin = await adminModel.findById(adminId);
-
-    // Store credentials in a flash message instead of the URL
-    req.flash('newUserCredentials', {
-        newUserType: 'Guard',
-        newUserName: name,
-        newUserId: guid,
-        // WARNING: Passing plain-text passwords, even in session, is a security risk.
-        newUserPass: password 
-    });
-    return res.redirect(`/dashboard/admin?userId=${admin.uid}`);
+    return res.status(201).json(
+        new ApiResponse(201, {
+            newUserType: 'Guard',
+            newUserName: name,
+            newUserId: guid,
+            newUserPass: password // Note: Sending password back is risky. Consider removing in production.
+        }, "Guard created successfully")
+    );
 });
 
 const viewAllVisitors = asyncHandler(async (req, res) => {

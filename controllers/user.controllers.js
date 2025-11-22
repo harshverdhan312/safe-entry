@@ -110,8 +110,8 @@ const loginUser = asyncHandler(async (req, res) => {
         case 'regular':
             return res
                 .status(200)
-                .cookie("accessToken", accessToken, options)
-                .redirect(`/dashboard/user?userId=${user.ruid}`);
+                .cookie("accessToken", accessToken, options,)
+                .redirect(`/dashboard/user?userId=${user._id.toString()}`);
         default:
             return res.redirect('/login'); // Fallback to login
     }

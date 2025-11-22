@@ -62,17 +62,21 @@ app.get("/dashboard/admin", async (req, res) => {
     });
 });
 app.get("/dashboard/user", async (req, res) => {
-    const user = await regularUserModel.findOne({ ruid: req.query.userId });
+    const user = await regularUserModel.findOne({ _id: req.query.userId });
+    const token = req.cookies.accessToken;
     res.render("regularUserDashboard", { 
         user: user, 
-        userId: req.query.userId 
+        userId: req.query.userId,
+        token: token
     });
 });
 app.get("/dashboard/guard", async (req, res) => {
     const guard = await guardModel.findOne({ guid: req.query.userId });
+    const token = req.cookies.accessToken;
     res.render("guardDashboard", { 
         user: guard, 
-        userId: req.query.userId 
+        userId: req.query.userId,
+        token: token
     });
 });
 

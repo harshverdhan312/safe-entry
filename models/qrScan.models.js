@@ -15,12 +15,12 @@ const qrSchema = new Schema({
         ref:"Regular_User"
     },
     scannedBy:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
         ref:"Guard"
     },
     scannedAt:{
         type:Date,
-        required:true
+    
     }
 },{
     timestamps:true

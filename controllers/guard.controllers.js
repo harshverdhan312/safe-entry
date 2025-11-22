@@ -20,7 +20,7 @@ const scanQrCode = asyncHandler(async (req, res) => {
     if (qrRecord.scannedBy) {
         throw new ApiError(400, "This QR code has already been scanned");
     }
-
+console.log(guardId)
     qrRecord.scannedBy = guardId;
     qrRecord.scannedAt = new Date();
     await qrRecord.save();

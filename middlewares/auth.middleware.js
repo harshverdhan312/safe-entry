@@ -14,7 +14,7 @@ const verifyJWT = asyncHandler(async(req, _, next) => {
         }
     
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    
+    res.send(decodedToken._id)
         // This is a simplified user lookup. You might expand this based on the token payload.
         const user = await adminModel.findById(decodedToken?._id) || await regularUserModel.findById(decodedToken?._id) || await guardModel.findById(decodedToken?._id);
     

@@ -6,10 +6,11 @@ const { regularUserModel } = require("../models/regularUser.models.js");
 const { generateCustomId } = require("../utils/idGenerator.js");
 const QRCode = require('qrcode');
 
-// In a real app, you'd use a library like 'qrcode' to generate an actual QR code image/data URL
-const createQr = asyncHandler(async (req, res) => {
-    const { userId } = req.body; // Assuming the regular user's ID is sent
 
+const createQr = asyncHandler(async (req, res) => {
+    console.log(req.query.userId)
+    const { userId } = req.query; 
+    console.log(userId)
     if (!userId) {
         throw new ApiError(400, "User ID is required to create a QR code");
     }
@@ -25,7 +26,7 @@ const createQr = asyncHandler(async (req, res) => {
 
     const qrData = {
         qrId: qrId,
-        qrCode: qrDataURL, // Save the data URL
+        qrCode: qrDataURL, 
         createdBy: user._id,
     };
 
@@ -37,7 +38,7 @@ const createQr = asyncHandler(async (req, res) => {
 });
 
 const viewMyVisitors = asyncHandler(async (req, res) => {
-    const { userId } = req.params; // Get user ID from URL parameter
+    const { userId } = req.params; 
 
     const scans = await qrCodeModel.find({ createdBy: userId })
         .populate("scannedBy", "name guid");
